@@ -2,7 +2,10 @@ from keras.models import Sequential
 from keras.layers import Flatten, Dense, MaxPool2D
 from keras.layers.convolutional import Conv2D
 from keras.preprocessing.image import ImageDataGenerator
+from keras.preprocessing import image
+import numpy as np
 
+path = 'path of the image to be predicted'
 # Initialize stuff
 model = Sequential()
 
@@ -53,3 +56,11 @@ model.fit_generator(training_set,
                     epochs = 25,
                     validation_data = test_set,
                     validation_steps = 2000)
+
+# Predictions
+
+test_image = image.load_img(path, target_size = (64,64))
+test_image = np.expand_dims(test_image,axis=0)
+test_image = image.img_to_array(test_image)
+result = model.predict(test_image)
+training_set.class_indices
